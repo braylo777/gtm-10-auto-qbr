@@ -1,0 +1,88 @@
+{
+ "stage": 10,
+ "repo": "gtm-10-auto-qbr",
+ "title": "The Automated QBR (Quarterly Business Review)",
+ "tagline": "Build the quarterly business review from data, not from a weekend of slides: quarter-over-quarter results vs goals, wins and risks picked by rule, chart SVGs, a slide outline, and an ROI model with a conservative case.",
+ "why": "A QBR is the moment a customer decides whether to renew and expand. Most CSMs spend a day per account copying numbers into slides, and the ROI claim is often a guess the customer's CFO ignores. An automated QBR pulls the same metrics every quarter, applies the same rules for what counts as a win or a risk, and shows ROI with a conservative case the CFO can trust.",
+ "covers": [
+  "Quarter-over-quarter change per metric, with direction (higher or lower is better) and goal met / missed",
+  "Rule-based wins (met goal or improved \u2265 threshold) and risks (missed goal and declined); status on_track / improving / at_risk",
+  "Bar-chart SVG per metric (last Q, this Q, dashed goal line), text escaped",
+  "Slide outline in a fixed order: title, results vs goals, wins, value delivered, risks and asks, next quarter",
+  "ROI model: time saved \u00d7 loaded rate, revenue lift \u00d7 gross margin, cost avoided; ROI %, net, payback months; base and conservative (haircut) cases"
+ ],
+ "gaps": [
+  "Outputs an outline and SVGs, not a .pptx or Google Slides file",
+  "No CRM / product-analytics pull: metrics are synthetic JSON",
+  "No narrative LLM writing: bullets are deterministic"
+ ],
+ "ops": [
+  {
+   "op": "qbr_deck",
+   "label": "QBR deck",
+   "help": "Compare Q3 and Q4 metrics against goals, then build wins, risks and the slide outline.",
+   "input": {
+    "customer": "Northwind Traders",
+    "quarter": "Q4 2026",
+    "win_pct": 10,
+    "roi_headline": "Conservative: 193.2% ROI over 12 months, payback 1 mo.",
+    "metrics": [
+     {
+      "metric": "Weekly active users",
+      "last_q": 182,
+      "this_q": 241,
+      "goal": 230
+     },
+     {
+      "metric": "Hot accounts routed < 10 min",
+      "last_q": 61,
+      "this_q": 88,
+      "goal": 90,
+      "unit": "%"
+     },
+     {
+      "metric": "Pipeline from PQLs",
+      "last_q": 410000,
+      "this_q": 515000,
+      "goal": 500000,
+      "unit": " USD"
+     },
+     {
+      "metric": "Open support tickets",
+      "last_q": 9,
+      "this_q": 14,
+      "goal": 6,
+      "better": "lower"
+     },
+     {
+      "metric": "Seats used",
+      "last_q": 44,
+      "this_q": 47,
+      "goal": 50
+     }
+    ],
+    "next_quarter_goals": [
+     "Roll routing out to the EMEA team (12 reps)",
+     "Cut open tickets to 6 with a shared Slack channel",
+     "Expansion review at 50/50 seats"
+    ]
+   }
+  },
+  {
+   "op": "roi_model",
+   "label": "ROI model",
+   "help": "Value the account's results in dollars, with a 30% haircut for the conservative case.",
+   "input": {
+    "months": 12,
+    "hours_saved_per_month": 120,
+    "loaded_hourly_rate": 65,
+    "revenue_lift_per_month": 18000,
+    "gross_margin_pct": 78,
+    "cost_avoided_per_month": 1200,
+    "subscription_per_month": 4500,
+    "one_time_cost": 12000,
+    "haircut_pct": 30
+   }
+  }
+ ]
+}

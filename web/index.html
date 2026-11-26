@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Automated QBR (Quarterly Business Review) · GTM Stage 10</title>
+<meta name="description" content="Build the quarterly business review from data, not from a weekend of slides: quarter-over-quarter results vs goals, wins and risks picked by rule, chart SVGs, a slide outline, and an ROI model with a conservative case.">
+<style>
+:root { --bg:#0d1520; --fg:#efe9dc; --mut:#c9c3b6; --card:#111c2a; --line:rgba(179,155,112,.32); --acc:#b39b70; --ok:#5fc58c; --err:#e0a487; --code:#132033; color-scheme:dark; }
+* { box-sizing:border-box }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.55 "Jost",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif }
+main { max-width:960px; margin:0 auto; padding:32px 20px 24px }
+.kicker { font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--acc) }
+h1 { font-family:var(--bsi-serif); font-weight:400; font-size:clamp(28px,4vw,40px); line-height:1.15; margin:10px 0 8px; letter-spacing:-.01em }
+.lede { color:var(--mut); max-width:68ch; margin:0 0 28px }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px }
+[role=tablist] { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px }
+[role=tablist] button { font:inherit; font-size:14px; padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--fg); cursor:pointer }
+[role=tablist] button[aria-selected=true] { background:var(--acc); border-color:var(--acc); color:var(--bg) }
+#help { color:var(--mut); font-size:14px; margin:0 0 12px }
+.io { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+@media (max-width:760px) { .io { grid-template-columns:1fr } }
+label { font-size:12px; font-weight:600; color:var(--mut); text-transform:uppercase; letter-spacing:.06em }
+textarea, pre { width:100%; min-height:340px; margin:6px 0 0; padding:12px; border-radius:8px; border:1px solid var(--line); background:var(--code); color:var(--fg); font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; overflow:auto; white-space:pre-wrap; word-break:break-word }
+textarea { resize:vertical }
+pre.ok { border-color:var(--ok) } pre.err { border-color:var(--err); color:var(--err) }
+.bar { display:flex; gap:8px; margin-top:12px }
+.bar button { font:inherit; font-weight:600; padding:8px 18px; border-radius:8px; border:1px solid var(--acc); background:var(--acc); color:var(--bg); cursor:pointer }
+.bar button.sec { background:transparent; color:var(--acc) }
+.bar button:disabled { opacity:.5; cursor:wait }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px }
+@media (max-width:760px) { .cols { grid-template-columns:1fr } }
+h2 { font-size:15px; margin:0 0 8px } ul { margin:0; padding-left:18px; font-size:14px } li { margin:3px 0 }
+.meta { margin-top:28px; font-size:13px; color:var(--mut) } a { color:var(--acc) }
+</style>
+<style id="bsi-brand">:root{--bsi-night:#0d1520;--bsi-night2:#111c2a;--bsi-navy:#132033;--bsi-brass:#b39b70;--bsi-ink:#efe9dc;--bsi-ink2:#c9c3b6;--bsi-ink3:#8e8b84;--bsi-serif:"Libre Caslon",Baskerville,"Iowan Old Style",Georgia,serif;--bsi-sans:"Jost",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}h1,h2,h3{font-family:var(--bsi-serif)}.bsi-top,.bsi-foot{box-sizing:border-box;width:100%;background:linear-gradient(180deg,var(--bsi-navy),var(--bsi-night));color:var(--bsi-ink);font:400 14px/1.5 var(--bsi-sans);border:1px solid rgba(179,155,112,.45)}.bsi-top *,.bsi-foot *{box-sizing:border-box}.bsi-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 16px;margin:0 0 16px;border-width:0 0 1px}.bsi-top img{display:block;height:36px;width:auto}.bsi-top a{color:var(--bsi-ink);text-decoration:none}.bsi-cta{font:500 12px/1 var(--bsi-sans);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--bsi-brass);color:var(--bsi-ink)!important}.bsi-cta:hover{background:var(--bsi-brass);color:var(--bsi-night)!important}.bsi-foot{margin:32px 0 0;padding:20px 16px;border-width:1px 0 0;text-align:left}.bsi-by{display:flex;align-items:center;gap:14px;max-width:960px;margin:0 auto}.bsi-hs{width:56px;height:56px;border-radius:50%;border:1px solid var(--bsi-brass);object-fit:cover;flex:none}.bsi-sig{display:block;height:40px;width:auto;margin:0 0 2px}.bsi-foot p{margin:0;color:var(--bsi-ink2);font:400 13px/1.5 var(--bsi-sans)}.bsi-foot .bsi-name{color:var(--bsi-ink);font:400 16px/1.3 var(--bsi-serif)}.bsi-foot .bsi-links{max-width:960px;margin:12px auto 0;padding-top:10px;border-top:1px solid rgba(179,155,112,.25);color:var(--bsi-ink3)}.bsi-foot a{color:var(--bsi-brass);text-decoration:underline;text-underline-offset:2px}</style>
+</head>
+<body>
+<!--bsi-brand:start--><header class="bsi-top"><a href="https://braylo.si" aria-label="Braylo SI, home"><img src="brand/braylo-signature.webp" width="104" height="36" alt="Braylo"></a><a class="bsi-cta" href="https://braylo.si">braylo.si &#8594;</a></header><!--bsi-brand:end-->
+<main>
+<div class="kicker">GTM Engineering · Stage 10 of 12</div>
+<h1>The Automated QBR (Quarterly Business Review)</h1>
+<p class="lede">Build the quarterly business review from data, not from a weekend of slides: quarter-over-quarter results vs goals, wins and risks picked by rule, chart SVGs, a slide outline, and an ROI model with a conservative case. The logic below runs in your browser: it is the same Rust code as the repo, compiled to WebAssembly. Nothing is sent to a server. All data is synthetic.</p>
+<section class="card">
+<div id="tabs" role="tablist" aria-label="Operations"></div>
+<p id="help"></p>
+<div class="io">
+<div><label for="input">Input (JSON, editable)</label><textarea id="input" spellcheck="false"></textarea></div>
+<div><label for="output">Output</label><pre id="output" aria-live="polite">Loading…</pre></div>
+</div>
+<div class="bar"><button id="run" type="button" disabled>Run</button><button id="reset" class="sec" type="button">Reset example</button></div>
+</section>
+<div class="cols">
+<section class="card"><h2>What this repo covers</h2><ul><li>Quarter-over-quarter change per metric, with direction (higher or lower is better) and goal met / missed</li><li>Rule-based wins (met goal or improved ≥ threshold) and risks (missed goal and declined); status on_track / improving / at_risk</li><li>Bar-chart SVG per metric (last Q, this Q, dashed goal line), text escaped</li><li>Slide outline in a fixed order: title, results vs goals, wins, value delivered, risks and asks, next quarter</li><li>ROI model: time saved × loaded rate, revenue lift × gross margin, cost avoided; ROI %, net, payback months; base and conservative (haircut) cases</li></ul></section>
+<section class="card"><h2>Not covered (honest gaps)</h2><ul><li>Outputs an outline and SVGs, not a .pptx or Google Slides file</li><li>No CRM / product-analytics pull: metrics are synthetic JSON</li><li>No narrative LLM writing: bullets are deterministic</li></ul></section>
+</div>
+<p class="meta">Source, tests and CLI: <a href="https://github.com/braylo777/gtm-10-auto-qbr">github.com/braylo777/gtm-10-auto-qbr</a> · MIT license · Built by <a href="https://braylo.si">Braylo SI</a></p>
+</main>
+<!--bsi-foot:start--><footer class="bsi-foot"><div class="bsi-by"><img class="bsi-hs" src="brand/braylo-headshot.jpg" width="56" height="56" alt="Brandon Lopez"><div><img class="bsi-sig" src="brand/braylo-signature.webp" width="116" height="40" alt="Braylo signature"><p class="bsi-name">Brandon Lopez, Founder · <a href="https://braylo.si">Braylo SI</a></p><p>Certified Claude FDE &amp; AI safety researcher, Techstars alum.</p></div></div><p class="bsi-links"><a href="https://github.com/braylo777/gtm-10-auto-qbr">Source on GitHub</a> · <a href="https://braylo.si">braylo.si</a> · AI implementation for small businesses</p></footer><!--bsi-foot:end-->
+<script type="application/json" id="cfg">{"stage": 10, "repo": "gtm-10-auto-qbr", "title": "The Automated QBR (Quarterly Business Review)", "tagline": "Build the quarterly business review from data, not from a weekend of slides: quarter-over-quarter results vs goals, wins and risks picked by rule, chart SVGs, a slide outline, and an ROI model with a conservative case.", "why": "A QBR is the moment a customer decides whether to renew and expand. Most CSMs spend a day per account copying numbers into slides, and the ROI claim is often a guess the customer's CFO ignores. An automated QBR pulls the same metrics every quarter, applies the same rules for what counts as a win or a risk, and shows ROI with a conservative case the CFO can trust.", "covers": ["Quarter-over-quarter change per metric, with direction (higher or lower is better) and goal met / missed", "Rule-based wins (met goal or improved \u2265 threshold) and risks (missed goal and declined); status on_track / improving / at_risk", "Bar-chart SVG per metric (last Q, this Q, dashed goal line), text escaped", "Slide outline in a fixed order: title, results vs goals, wins, value delivered, risks and asks, next quarter", "ROI model: time saved \u00d7 loaded rate, revenue lift \u00d7 gross margin, cost avoided; ROI %, net, payback months; base and conservative (haircut) cases"], "gaps": ["Outputs an outline and SVGs, not a .pptx or Google Slides file", "No CRM / product-analytics pull: metrics are synthetic JSON", "No narrative LLM writing: bullets are deterministic"], "ops": [{"op": "qbr_deck", "label": "QBR deck", "help": "Compare Q3 and Q4 metrics against goals, then build wins, risks and the slide outline.", "input": {"customer": "Northwind Traders", "quarter": "Q4 2026", "win_pct": 10, "roi_headline": "Conservative: 193.2% ROI over 12 months, payback 1 mo.", "metrics": [{"metric": "Weekly active users", "last_q": 182, "this_q": 241, "goal": 230}, {"metric": "Hot accounts routed < 10 min", "last_q": 61, "this_q": 88, "goal": 90, "unit": "%"}, {"metric": "Pipeline from PQLs", "last_q": 410000, "this_q": 515000, "goal": 500000, "unit": " USD"}, {"metric": "Open support tickets", "last_q": 9, "this_q": 14, "goal": 6, "better": "lower"}, {"metric": "Seats used", "last_q": 44, "this_q": 47, "goal": 50}], "next_quarter_goals": ["Roll routing out to the EMEA team (12 reps)", "Cut open tickets to 6 with a shared Slack channel", "Expansion review at 50/50 seats"]}}, {"op": "roi_model", "label": "ROI model", "help": "Value the account's results in dollars, with a 30% haircut for the conservative case.", "input": {"months": 12, "hours_saved_per_month": 120, "loaded_hourly_rate": 65, "revenue_lift_per_month": 18000, "gross_margin_pct": 78, "cost_avoided_per_month": 1200, "subscription_per_month": 4500, "one_time_cost": 12000, "haircut_pct": 30}}]}</script>
+<script src="app.js"></script>
+</body>
+</html>

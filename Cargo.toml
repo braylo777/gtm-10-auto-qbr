@@ -1,0 +1,23 @@
+[package]
+name = "gtm-10-auto-qbr"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Build the quarterly business review from data, not from a weekend of slides: quarter-over-quarter results vs goals, wins and risks picked by rule, chart SVGs, a slide outline, and an ROI model with a conservative case."
+repository = "https://github.com/braylo777/gtm-10-auto-qbr"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "gtm-10-auto-qbr"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "=1.0.154"
+
+[profile.release]
+opt-level = "s"
+lto = true
+panic = "abort"
+codegen-units = 1

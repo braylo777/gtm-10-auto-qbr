@@ -1,0 +1,6 @@
+{
+  // Static-assets-only Worker: serves web/ (no server code).
+  "name": "gtm-10-auto-qbr",
+  "compatibility_date": "2026-11-10",
+  "assets": { "directory": "web" }
+}
